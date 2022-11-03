@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
 
+with:
+  registry1_username: ${{ secrets.REGISTRY1USERNAME }}
+  registry1_password: ${{ secrets.REGISTRY1PASSWORD }}
+
 jobs:
   build-package:
     runs-on: ubuntu-latest
