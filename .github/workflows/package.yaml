@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-zarf
       - uses: ./.github/actions/registry-login
         with:
           registry1_username: ${{ secrets.REGISTRY1USERNAME }}
           registry1_password: ${{ secrets.REGISTRY1PASSWORD }}
-      - uses: ./.github/actions/install-zarf
       - uses: ./.github/actions/package-create
