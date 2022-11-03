@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: kubevirt
+  namespace: kubevirt
+spec:
+  interval: 5m
+  url: https://repo1.dso.mil/platform-one/big-bang/apps/third-party/kubevirt.git
+  ref:
+    tag: 0.55.0-bb.0
+  secretRef:
+    name: private-git-server

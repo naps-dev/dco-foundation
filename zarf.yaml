@@ -1,0 +1,174 @@
+kind: ZarfPackageConfig
+metadata:
+  name: dco-foundation
+  description: "Defensive Cyber Ops (DCO) Suite Foundation"
+  # Big Bang / Iron Bank are only amd64
+  architecture: amd64
+
+variables:
+  # Prompt user for the domain override
+  - name: DOMAIN
+    default: "bigbang.dev"
+    prompt: false
+  
+  - name: BRANCH
+    default: "main"
+    prompt: true
+
+components:
+  - name: flux
+    required: true
+    manifests:
+      - name: flux-installer
+        # This will be built on the package create side and deployed as a regular manifest on package deploy
+        kustomizations:
+          - https://repo1.dso.mil/platform-one/big-bang/bigbang.git//base/flux?ref=1.39.0
+    images:
+      # Flux images
+      - registry1.dso.mil/ironbank/fluxcd/helm-controller:v0.22.1
+      - registry1.dso.mil/ironbank/fluxcd/kustomize-controller:v0.26.1
+      - registry1.dso.mil/ironbank/fluxcd/notification-controller:v0.24.0
+      - registry1.dso.mil/ironbank/fluxcd/source-controller:v0.25.8
+
+  - name: big-bang-core-standard-assets
+    description: "Git repositories and OCI images used by Big Bang Core"
+    required: true
+    repos:
+      - https://repo1.dso.mil/platform-one/big-bang/bigbang.git@1.39.0
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/istio-controlplane.git@1.13.5-bb.2
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/istio-operator.git@1.13.5-bb.1
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/policy.git@3.8.1-bb.5
+      # - https://repo1.dso.mil/platform-one/big-bang/apps/core/cluster-auditor.git@1.4.0-bb.4
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/monitoring.git@36.2.1-bb.2
+      - https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/twistlock.git@0.9.0-bb.3
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/elasticsearch-kibana.git@0.8.0-bb.1
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/eck-operator.git@2.3.0-bb.0
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/fluentbit.git@0.20.3-bb.0
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/jaeger.git@2.33.0-bb.0
+
+    images:
+      # istio:
+      - "registry1.dso.mil/ironbank/big-bang/base:2.0.0"
+      - "registry1.dso.mil/ironbank/opensource/istio/pilot:1.13.5"
+      - "registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.13.5"
+      - "registry1.dso.mil/ironbank/opensource/istio/install-cni:1.13.5"
+
+      # istiooperator:
+      - "registry1.dso.mil/ironbank/opensource/istio/operator:1.13.5"
+
+      # clusterAuditor:
+      #- "registry1.dso.mil/ironbank/bigbang/cluster-auditor/opa-exporter:v0.0.4"
+
+      # policy (OPA Gatekeeper)
+      #- registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.22.2
+      #- registry1.dso.mil/ironbank/opensource/openpolicyagent/gatekeeper:v3.8.1
+
+      # monitoring:
+      - "registry1.dso.mil/ironbank/big-bang/base:2.0.0"
+      - "registry1.dso.mil/ironbank/big-bang/grafana/grafana-plugins:9.0.1"
+      - "registry1.dso.mil/ironbank/kiwigrid/k8s-sidecar:1.19.2"
+      - "registry1.dso.mil/ironbank/opensource/ingress-nginx/kube-webhook-certgen:v1.1.1"
+      - "registry1.dso.mil/ironbank/opensource/kubernetes/kube-state-metrics:v2.5.0"
+      - "registry1.dso.mil/ironbank/opensource/prometheus-operator/prometheus-config-reloader:v0.57.0"
+      - "registry1.dso.mil/ironbank/opensource/prometheus-operator/prometheus-operator:v0.57.0"
+      - "registry1.dso.mil/ironbank/opensource/prometheus/alertmanager:v0.24.0"
+      - "registry1.dso.mil/ironbank/opensource/prometheus/node-exporter:v1.3.1"
+      - "registry1.dso.mil/ironbank/opensource/prometheus/prometheus:v2.36.2"
+
+      # twistlock:
+      - "registry1.dso.mil/ironbank/big-bang/base:2.0.0"
+      - "registry1.dso.mil/ironbank/twistlock/console/console:22.06.179"
+      - "registry1.dso.mil/ironbank/twistlock/defender/defender:22.06.179"
+
+      # logging
+      - "registry1.dso.mil/ironbank/elastic/kibana/kibana:8.2.3"
+      - "registry1.dso.mil/ironbank/elastic/elasticsearch/elasticsearch:8.2.3"
+      - "registry1.dso.mil/ironbank/big-bang/base:2.0.0"
+      - "registry1.dso.mil/ironbank/elastic/eck-operator/eck-operator:2.3.0"
+      - "registry1.dso.mil/ironbank/opensource/fluent/fluent-bit:1.9.6"
+      - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-operator:1.35.0"
+      - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-es-index-cleaner:1.35.2"
+      - "registry1.dso.mil/ironbank/opensource/jaegertracing/all-in-one:1.35.2"
+      - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-agent:1.35.2"
+      - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-ingester:1.35.2"
+      - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-query:1.35.2"
+      - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-collector:1.35.2"
+      
+
+  - name: big-bang-core-plg-assets
+    description: "Git repositories and OCI images used by PLG"
+    required: false
+    repos:
+      - https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/loki.git@3.0.5-bb.4
+      - https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/promtail.git@4.2.0-bb.2
+      - https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/tempo.git@0.15.1-bb.7
+    images:
+      - registry1.dso.mil/ironbank/opensource/grafana/loki:2.5.0
+      - registry1.dso.mil/ironbank/opensource/grafana/promtail:v2.5.0
+      - registry1.dso.mil/ironbank/opensource/grafana/tempo-query:1.4.1
+      - registry1.dso.mil/ironbank/opensource/grafana/tempo:1.4.1
+
+  - name: big-bang-core-standard
+    description: "Deploy Big Bang Core with a standard configuration"
+    required: true
+    manifests:
+      - name: big-bang-config
+        kustomizations:
+          - "kustomizations/bigbang"
+  
+  - name: setup
+    description: "Required setup for the Zarf CDO package"
+    required: true
+    repos:
+      - https://github.com/naps-dev/dco-foundation.git
+    manifests:
+      - name: setup
+        files:
+          - manifests/setup.yaml
+
+  - name: kubevirt
+    description: "KubeVirt"
+    required: true
+    repos:
+      - https://repo1.dso.mil/platform-one/big-bang/apps/third-party/kubevirt.git@0.55.0-bb.0
+    images:
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-api:v0.55.0
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-controller:v0.55.0
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-launcher:v0.55.0
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-handler:v0.55.0
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-operator:v0.55.0
+    manifests:
+      - name: kubevirt
+        files:
+          - manifests/kubevirt.yaml
+
+  - name: cdi
+    description: "CDI for KubeVirt"
+    required: true
+    repos:
+      - https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/cdi.git@1.53.0-bb.0
+    images:
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-operator:v1.53.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-controller:v1.53.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-importer:v1.53.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-cloner:v1.53.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-apiserver:v1.53.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-uploadserver:v1.53.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-uploadproxy:v1.53.0
+    manifests:
+      - name: cdi
+        files:
+          - manifests/cdi.yaml
+
+  - name: metallb
+    description: "Load balancer for balancing loads"
+    required: false
+    repos: 
+      - https://github.com/metallb/metallb.git@v0.13.7
+    images:
+      - quay.io/metallb/speaker:v0.13.7
+      - quay.io/metallb/controller:v0.13.7
+    manifests:
+      - name: metallb
+        files:
+          - manifests/metallb.yaml

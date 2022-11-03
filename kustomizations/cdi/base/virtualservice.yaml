@@ -1,0 +1,17 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: cdi
+  namespace: cdi
+spec:
+  hosts:
+    - "cdi.${DOMAIN}"
+  gateways:
+    - istio-system/public
+  http:
+    - route:
+        - destination:
+            host: cdi-uploadproxy.cdi.svc.cluster.local
+            port:
+              number: 8180

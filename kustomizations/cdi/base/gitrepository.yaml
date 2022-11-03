@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: cdi
+  namespace: cdi
+spec:
+  interval: 5m
+  url: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/cdi.git
+  ref:
+    tag: 1.53.0-bb.0
+  secretRef:
+    name: private-git-server
