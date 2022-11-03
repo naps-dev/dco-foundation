@@ -10,5 +10,6 @@ runs:
   using: "composite"
   steps:
 
-    - run: $GITHUB_ACTION_PATH/registry-login.sh ${{ inputs.registry1_username }} ${{ inputs.registry1_password }}
+    - run: echo ${{ inputs.registry1_username }}
+      run: $GITHUB_ACTION_PATH/registry-login.sh ${{ inputs.registry1_username }} ${{ inputs.registry1_password }}
       shell: bash
