@@ -3,5 +3,8 @@ name: Create Zarf Package
 runs:
   using: "composite"
   steps:
-    - run: $GITHUB_ACTION_PATH/registry-login.sh ${{secrets.REGISTRY1USERNAME}} ${{secrets.REGISTRY1PASSWORD}}
+    - with:
+        registry1_username: ${{ secrets.REGISTRY1USERNAME }}
+        registry1_password: ${{ secrets.REGISTRY1PASSWORD }}
+      run: $GITHUB_ACTION_PATH/registry-login.sh ${{ inputs.registry1_username }} ${{ inputs.registry1_password }}
       shell: bash
