@@ -1,0 +1,11 @@
+name: Package DCO Foundation
+run-name: ${{ github.actor }} is building the DCO Foundation Zarf Package
+on: 
+  workflow_dispatch:
+  push:
+
+jobs:
+  build-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/install-zarf

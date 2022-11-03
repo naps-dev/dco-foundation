@@ -1,0 +1,8 @@
+name: Install Zarf
+run-name: ${{ github.actor }} is installing Zarf
+
+runs:
+  using: "composite"
+  steps:
+    - run: $GITHUB_ACTION_PATH/install-zarf.sh
+      shell: bash
