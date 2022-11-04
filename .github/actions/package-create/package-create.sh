@@ -6,4 +6,4 @@ else
   BRANCH="main"
 fi
 
-zarf package create --set BRANCH=$BRANCH
+zarf package create --set BRANCH=$BRANCH --confirm
