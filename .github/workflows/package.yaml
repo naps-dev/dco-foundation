@@ -30,6 +30,7 @@ jobs:
           aws_bucket: ${{secrets.AWS_BUCKET}}
           source: "zarf-package-dco-foundation-amd64.tar.zst"
           destination: "${{github.repository}}/${{github.ref_name}}/zarf-package-dco-foundation-amd64.tar.zst"
+          
       # - uses: shallwefootball/s3-upload-action@master
       #   with:
       #     aws_key_id: ${{secrets.AWS_ACCESS_KEY}}
