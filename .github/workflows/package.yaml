@@ -10,6 +10,8 @@ jobs:
   build-package:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "UNAME ${{ secrets.REGSITRY1USERNAME }}"
+        shell: bash
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-zarf
       - uses: ./.github/actions/registry-login
