@@ -19,5 +19,5 @@ runs:
         export AWS_ACCESS_KEY_ID=${{inputs.aws_access_key}}
         export AWS_SECRET_ACCESS_KEY=${{inputs.aws_secret_key}}
       shell: bash
-    - run: aws s3 cp ${{inputs.source}} s3://${{inputs.aws_bucket}}/${{inputs.destination}}
+    - run: aws s3 cp ${{inputs.source}} s3://${{inputs.aws_bucket}}/${{inputs.destination}} --debug
       shell: bash
