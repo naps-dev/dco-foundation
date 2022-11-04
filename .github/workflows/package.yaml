@@ -10,7 +10,10 @@ jobs:
   build-package:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "UNAME ${{secrets.Registry1Username}}"
+      - run: echo "UNAME ${{secrets.REGISTRY1USERNAME}}"
+        with:
+          registry1_username: ${{ secrets.REGISTRY1USERNAME }}
+          registry1_password: ${{ secrets.REGISTRY1PASSWORD }}
         shell: bash
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-zarf
