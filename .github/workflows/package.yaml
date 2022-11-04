@@ -16,10 +16,14 @@ jobs:
           registry_password: ${{secrets.REGISTRY1_PASSWORD}}
           registry_url: registry1.dso.mil
       - uses: ./.github/actions/package-create
+      - run: |
+          mkdir out
+          cp zarf-package-dco-foundation-amd64.tar.zst out/
+        shell: bash
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{secrets.AWS_ACCESS_KEY}}
           aws_secret_access_key: ${{secrets.AWS_SECRET_KEY}}
           aws_bucket: ${{secrets.AWS_BUCKET}}
-          source_dir: "zarf-package-dco-foundation-amd64.tar.zst"
-          destination_dir: "${{github.repository}}/${{github.ref_name}}/zarf-package-dco-foundation-amd64.tar.zst"
+          source_dir: "out"
+          destination_dir: "${{github.repository}}/${{github.ref_name}}/out"
