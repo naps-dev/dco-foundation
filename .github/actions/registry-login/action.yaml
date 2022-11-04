@@ -1,15 +1,15 @@
 name: Create Zarf Package
 
 inputs:
-  registry1_username:
+  registry_username:
     required: true
-  registry1_password:
+  registry_password:
+    required: true
+  registry_url:
     required: true
 
 runs:
   using: "composite"
   steps:
-    - run: echo ${{ inputs.registry1_username }}
-      shell: bash
-    - run: $GITHUB_ACTION_PATH/registry-login.sh ${{ inputs.registry1_username }} ${{ inputs.registry1_password }}
+    - run: $GITHUB_ACTION_PATH/registry-login.sh ${{ inputs.registry_username }} ${{ inputs.registry_password }} ${{ inputs.registry_url }}
       shell: bash

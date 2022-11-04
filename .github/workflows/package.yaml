@@ -16,6 +16,7 @@ jobs:
       - uses: ./.github/actions/install-zarf
       - uses: ./.github/actions/registry-login
         with:
-          registry1_username: ${{ secrets.REGISTRY1_USERNAME }}
-          registry1_password: ${{ secrets.REGISTRY1_PASSWORD }}
+          registry_username: ${{ secrets.REGISTRY1_USERNAME }}
+          registry_password: ${{ secrets.REGISTRY1_PASSWORD }}
+          registry_url: registry1.dso.mil
       - uses: ./.github/actions/package-create
