@@ -8,10 +8,6 @@ jobs:
   build-package:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "env $GITHUB_REPOSITORY/$GITHUB_REF_NAME"
-        shell: bash
-      - run: echo "env ${{github.repository}}/${{github.ref_name}}"
-        shell: bash
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-zarf
       - uses: ./.github/actions/registry-login
@@ -26,4 +22,4 @@ jobs:
           aws_secret_access_key: ${{secrets.AWS_SECRET_KEY}}
           aws_bucket: ${{secrets.AWS_BUCKET}}
           source_dir: "zarf-package-dco-foundation-amd64.tar.zst"
-          destination_dir: "${{env.GITHUB_REPOSITORY}}/${{env.GITHUB_REF_NAME}}/zarf-package-dco-foundation-amd64.tar.zst"
+          destination_dir: "${{github.repository}}/${{github.ref_name}}/zarf-package-dco-foundation-amd64.tar.zst"
