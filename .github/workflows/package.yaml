@@ -10,7 +10,7 @@ jobs:
   build-package:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "UNAME ${{registry1_username}}"
+      - run: echo "UNAME ${{env.registry1_username}}"
         env:
           registry1_username: ${{ secrets.REGISTRY1USERNAME }}
           registry1_password: ${{ secrets.REGISTRY1PASSWORD }}
