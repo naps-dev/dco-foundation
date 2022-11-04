@@ -7,6 +7,3 @@ else
 fi
 
 zarf package create --set BRANCH=$BRANCH --confirm --skip-sbom
-
-mkdir out
-mv zarf-package-dco-foundation-amd64.tar.zst out/

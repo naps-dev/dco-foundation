@@ -1,0 +1,23 @@
+name: S3 Upload
+
+inputs:
+  aws_access_key:
+    required: true
+  aws_secret_key:
+    required: true
+  aws_bucket:
+    required: true
+  source:
+    required: true
+  destination:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        export AWS_ACCESS_KEY_ID=${{inputs.aws_access_key}}
+        export AWS_SECRET_ACCESS_KEY=${{inputs.aws_secret_key}}
+      shell: bash
+    - run: aws s3 cp ${{inputs.source}} s3://${{inputs.aws_bucket}}/${{inputs.destination}}
+      shell: bash
