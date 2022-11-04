@@ -20,5 +20,6 @@ runs:
         export AWS_SECRET_ACCESS_KEY=${{inputs.aws_secret_key}}
         export AWS_REGION=us-east-1
         aws configure list
+        aws s3 ls naps-dev-artifacts
         aws s3 cp ${{inputs.source}} s3://${{inputs.aws_bucket}}/${{inputs.destination}} --debug
       shell: bash
