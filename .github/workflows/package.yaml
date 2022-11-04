@@ -1,5 +1,5 @@
 name: Package DCO Foundation
-run-name: ${{ github.actor }} is building the DCO Foundation Zarf Package
+run-name: ${{github.actor}} is building the DCO Foundation Zarf Package
 on: 
   workflow_dispatch:
   push:
@@ -8,7 +8,7 @@ jobs:
   build-package:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "env ${{env.GITHUB_REPOSITORY}}/${{env.GITHUB_REF_NAME}}"
+      - run: echo "env ${GITHUB_REPOSITORY}/${GITHUB_REF_NAME}"
         shell: bash
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-zarf
