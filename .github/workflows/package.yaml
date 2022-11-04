@@ -16,10 +16,6 @@ jobs:
           registry_password: ${{secrets.REGISTRY1_PASSWORD}}
           registry_url: registry1.dso.mil
       - uses: ./.github/actions/package-create
-      - run: |
-          mkdir out
-          cp zarf-package-dco-foundation-amd64.tar.zst out/
-        shell: bash
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{secrets.AWS_ACCESS_KEY}}
