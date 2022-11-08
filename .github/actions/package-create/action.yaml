@@ -3,6 +3,5 @@ name: Create Zarf Package
 runs:
   using: "composite"
   steps:
-    - run: |
-        $GITHUB_ACTION_PATH/package-create.sh "$GITHUB_REF_NAME"
+    - run: $GITHUB_ACTION_PATH/package-create.sh "$GITHUB_REF_NAME"
       shell: bash
