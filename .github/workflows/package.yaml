@@ -29,7 +29,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{secrets.AWS_ROLE}}
-          role-session-name: "${{github.ref_name}}"
+          role-session-name: "${{github.repository}}"
           aws-region: us-east-1
       - uses: ./.github/actions/s3-publish
         with:
