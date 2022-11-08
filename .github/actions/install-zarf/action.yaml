@@ -4,5 +4,5 @@ runs:
   using: "composite"
   steps:
     - run: |
-        "$GITHUB_ACTION_PATH/install-zarf.sh"
+        $GITHUB_ACTION_PATH/install-zarf.sh
       shell: bash
