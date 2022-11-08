@@ -1,9 +1,11 @@
 name: Package DCO Foundation
 run-name: ${{github.actor}} is building the DCO Foundation Zarf Package
-on: 
+on:
   workflow_dispatch:
   push:
-
+permissions:
+  id-token: write
+  contents: read
 jobs:
   build-package:
     runs-on: ubuntu-latest
@@ -18,22 +20,19 @@ jobs:
       - uses: ./.github/actions/package-create
       - uses: unfor19/install-aws-cli-action@v1.0.3
         with:
-          version: 2     # default
+          version: 2 # default
           verbose: false # default
-          arch: amd64    # allowed values: amd64, arm64
-          rootdir: ""    # defaults to "PWD"
-          workdir: ""    # defaults to "PWD/unfor19-awscli"
+          arch: amd64 # allowed values: amd64, arm64
+          rootdir: "" # defaults to "PWD"
+          workdir: "" # defaults to "PWD/unfor19-awscli"
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{secrets.AWS_ROLE}}
+          role-session-name: "${{github.repository}}/${{github.ref_name}}"
+          aws-region: us-east-1
       - uses: ./.github/actions/s3-publish
         with:
-          aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
-          aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
           aws_bucket: ${{secrets.AWS_BUCKET}}
           source: "zarf-package-dco-foundation-amd64.tar.zst"
           destination: "${{github.repository}}/${{github.ref_name}}/zarf-package-dco-foundation-amd64.tar.zst"
-      # - uses: shallwefootball/s3-upload-action@master
-      #   with:
-      #     aws_key_id: ${{secrets.AWS_ACCESS_KEY}}
-      #     aws_secret_access_key: ${{secrets.AWS_SECRET_KEY}}
-      #     aws_bucket: ${{secrets.AWS_BUCKET}}
-      #     source_dir: "out"
-      #     destination_dir: "${{github.repository}}/${{github.ref_name}}/out"
