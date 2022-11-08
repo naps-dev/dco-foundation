@@ -4,5 +4,5 @@ runs:
   using: "composite"
   steps:
     - run: |
-        ${{ github.action_path }}/package-create.sh ${{github.ref_name}}
+        "${{ github.action_path }}/package-create.sh" "${{github.ref_name}}"
       shell: bash

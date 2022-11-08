@@ -4,5 +4,5 @@ runs:
   using: "composite"
   steps:
     - run: |
-        ${{ github.action_path }}/install-zarf.sh
+        "${{ github.action_path }}/install-zarf.sh"
       shell: bash

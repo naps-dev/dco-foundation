@@ -1,6 +1,5 @@
 #!/bin/bash
-
-echo $1
+set -euo pipefail
 
 if [ -n "$1" ]; then
   REGISTRY_USERNAME="$1"
@@ -23,4 +22,6 @@ else
   exit 1
 fi
 
+echo "Logging into $REGISTRY_URL as user: $REGISTRY_USERNAME"
+set -x
 zarf tools registry login -u "$REGISTRY_USERNAME" -p "$REGISTRY_PASSWORD" "$REGISTRY_URL"
