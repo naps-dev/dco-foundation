@@ -1,3 +1,4 @@
 *.zst
 *.iso
 zarf-sbom/
+scratch/
