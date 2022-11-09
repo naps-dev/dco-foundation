@@ -1,0 +1,4 @@
+resources:
+  - gitrepository.yaml
+  - helmrelease.yaml
+  - virtualservice.yaml

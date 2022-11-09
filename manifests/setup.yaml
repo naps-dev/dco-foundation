@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubevirt
+  labels:
+    istio-injection: disabled
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cdi
+  labels:
+    istio-injection: disabled
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metallb
+  labels:
+    istio-injection: disabled
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: zarf-cd-pkg
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://github.com/naps-dev/dco-foundation.git
+  ref:
+    branch: "###ZARF_VAR_BRANCH###"

@@ -1,0 +1,16 @@
+name: S3 Upload
+
+inputs:
+  aws_bucket:
+    required: true
+  source:
+    required: true
+  destination:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        aws s3 cp --no-progress "${{inputs.source}}" "s3://${{inputs.aws_bucket}}/${{inputs.destination}}"
+      shell: bash
