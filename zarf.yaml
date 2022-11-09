@@ -10,7 +10,7 @@ variables:
   - name: DOMAIN
     default: "bigbang.dev"
     prompt: false
-  
+
   - name: BRANCH
     default: "main"
     prompt: true
@@ -93,20 +93,6 @@ components:
       - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-ingester:1.35.2"
       - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-query:1.35.2"
       - "registry1.dso.mil/ironbank/opensource/jaegertracing/jaeger-collector:1.35.2"
-      
-
-  - name: big-bang-core-plg-assets
-    description: "Git repositories and OCI images used by PLG"
-    required: false
-    repos:
-      - https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/loki.git@3.0.5-bb.4
-      - https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/promtail.git@4.2.0-bb.2
-      - https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/tempo.git@0.15.1-bb.7
-    images:
-      - registry1.dso.mil/ironbank/opensource/grafana/loki:2.5.0
-      - registry1.dso.mil/ironbank/opensource/grafana/promtail:v2.5.0
-      - registry1.dso.mil/ironbank/opensource/grafana/tempo-query:1.4.1
-      - registry1.dso.mil/ironbank/opensource/grafana/tempo:1.4.1
 
   - name: big-bang-core-standard
     description: "Deploy Big Bang Core with a standard configuration"
@@ -115,7 +101,7 @@ components:
       - name: big-bang-config
         kustomizations:
           - "kustomizations/bigbang"
-  
+
   - name: setup
     description: "Required setup for the Zarf CDO package"
     required: true
@@ -163,7 +149,7 @@ components:
   - name: metallb
     description: "Load balancer for balancing loads"
     required: false
-    repos: 
+    repos:
       - https://github.com/metallb/metallb.git@v0.13.7
     images:
       - quay.io/metallb/speaker:v0.13.7
