@@ -67,6 +67,11 @@ components:
       - registry1.dso.mil/ironbank/twistlock/console/console:22.06.197
       - registry1.dso.mil/ironbank/twistlock/defender/defender:22.06.197
 
+      # NOT DISCOVERED BY `zarf prepare` -- must be updated manually
+      - "registry1.dso.mil/ironbank/opensource/istio/pilot:1.15.0"
+      - "registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.15.0"
+      - "registry1.dso.mil/ironbank/opensource/istio/install-cni:1.15.0"
+
   - name: big-bang-core-standard
     description: "Deploy Big Bang Core with a standard configuration"
     required: true
