@@ -12,3 +12,5 @@ Instructions:
 * Use `zarf prepare find-images --repo-chart-path "chart/"` to identify the list of images required for the target packages
 * Update the component `images` according to the output of `zarf prepare`^
 * test test test
+
+> NOTE -- it's possible some images will not be automatically discovered by `zarf prepare` (ex. the istio proxy image, which is not directly referenced in the controlplane or operator charts)
