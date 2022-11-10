@@ -23,6 +23,21 @@ istio:
   ingressGateways:
     public-ingressgateway:
       type: "LoadBalancer"
+      # Leaving this as a placeholder -- not sure we want to set this for dev quite yet due to multiple deployment envs and distros
+      # loadBalancerIP: 10.1.29.122
+    dataplane-ingressgateway:
+      type: "LoadBalancer"
+      # Leaving this as a placeholder -- not sure we want to set this for dev quite yet due to multiple deployment envs and distros
+      # loadBalancerIP: 10.1.29.123
+  gateways:
+    public:
+      ingressGateway: public-ingressgateway
+      hosts:
+        - "*.{{ .Values.domain }}"
+    dataplane:
+      ingressGateway: dataplane-ingressgateway
+      hosts:
+        - "dataplane-kibana.{{ .Values.domain }}"
 
 clusterAuditor:
   enabled: false
