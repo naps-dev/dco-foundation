@@ -1,8 +1,10 @@
 name: Package DCO Foundation
 run-name: ${{github.actor}} is building the DCO Foundation Zarf Package
 on:
-  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize]
   push:
+    branches: [main]
 permissions:
   id-token: write
   contents: read
