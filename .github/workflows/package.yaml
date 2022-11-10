@@ -37,4 +37,4 @@ jobs:
         with:
           aws_bucket: ${{secrets.AWS_BUCKET}}
           source: "zarf-package-dco-foundation-amd64.tar.zst"
-          destination: "${{github.repository}}/${{github.ref_name}}/zarf-package-dco-foundation-amd64.tar.zst"
+          destination: "${{github.repository}}/${{ github.head_ref || github.ref_name }}/zarf-package-dco-foundation-amd64.tar.zst"
