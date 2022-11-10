@@ -72,7 +72,7 @@ components:
       - "registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.15.0"
       - "registry1.dso.mil/ironbank/opensource/istio/install-cni:1.15.0"
       - "registry1.dso.mil/ironbank/opensource/bitnami/elasticsearch-exporter:1.5.0-debian-11-r17"
-      - "registry1.dso.mil/ironbank/opensource/ingress-nginx/kube-webhook-certgen-401797458:v1.3.0"
+      - "registry1.dso.mil/ironbank/opensource/ingress-nginx/kube-webhook-certgen:v1.3.0"
 
   - name: big-bang-core-standard
     description: "Deploy Big Bang Core with a standard configuration"
