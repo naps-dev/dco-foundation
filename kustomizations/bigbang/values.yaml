@@ -33,7 +33,7 @@ istio:
     public:
       ingressGateway: public-ingressgateway
       hosts:
-        - "*.{{ .Values.domain }}"
+        - "*.{{ .Values.morrrreee.domain }}"
     dataplane:
       ingressGateway: dataplane-ingressgateway
       hosts:
