@@ -139,3 +139,13 @@ components:
       - name: metallb
         files:
           - manifests/metallb.yaml
+
+  - name: dataplane-ek
+    description: "EK Chart Deployment for the DataPlane"
+    required: true
+    repos:
+      - https://repo1.dso.mil/platform-one/big-bang/apps/core/elasticsearch-kibana.git@0.12.1-bb.0
+    manifests:
+      - name: dataplane-ek
+        files:
+          - manifests/dataplane-ek.yaml

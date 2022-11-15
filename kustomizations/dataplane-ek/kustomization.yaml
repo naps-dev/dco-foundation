@@ -1,0 +1,12 @@
+configurations:
+  - transformer.yaml
+resources:
+  - gitrepository.yaml
+  - helmrelease.yaml
+
+configMapGenerator:
+  - name: dataplane-ek-values
+    namespace: dataplane-ek
+    behavior: create
+    files:
+    - values.yaml=values.yaml

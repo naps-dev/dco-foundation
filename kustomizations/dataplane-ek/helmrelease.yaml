@@ -1,0 +1,38 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: dataplane-ek
+  namespace: dataplane-ek
+spec:
+  targetNamespace: dataplane-ek
+  releaseName: dataplane-ek
+  interval: 5m
+  timeout: 10m
+  chart:
+    spec:
+      interval: 1m
+      chart: ./chart
+      sourceRef:
+        kind: GitRepository
+        name: dataplane-ek
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 30m
+    cleanupOnFail: false
+  valuesFrom:
+    - name: dataplane-ek-values
+      kind: ConfigMap
+  dependsOn:
+    - name: istio
+      namespace: bigbang
+    - name: eck-operator
+      namespace: bigbang
