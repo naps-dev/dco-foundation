@@ -33,11 +33,11 @@ istio:
     public:
       ingressGateway: public-ingressgateway
       hosts:
-        - "*.{{ .Values.domain }}"
+        - "*.###ZARF_VAR_DOMAIN###"
     dataplane:
       ingressGateway: dataplane-ingressgateway
       hosts:
-        - "dataplane-kibana.{{ .Values.domain }}"
+        - "dataplane-kibana.###ZARF_VAR_DOMAIN###"
 
 clusterAuditor:
   enabled: false
