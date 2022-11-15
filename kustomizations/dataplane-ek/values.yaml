@@ -7,7 +7,7 @@ istio:
   enabled: true
   kibana:
     gateways:
-      - istio-system/public
+      - istio-system/dataplane
     hosts:
       - "dataplane-kibana.${DOMAIN}"
 
