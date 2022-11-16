@@ -20,6 +20,13 @@ metadata:
   labels:
     istio-injection: disabled
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dataplane-ek
+  labels:
+    istio-injection: enabled
+---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
