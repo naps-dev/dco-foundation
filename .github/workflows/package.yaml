@@ -39,7 +39,7 @@ jobs:
       
       - name: Create Zarf Package
         run: |
-          zarf package create --set BRANCH="${{ env.BRANCH_NAME }}" --confirm -l debug
+          zarf package create --set BRANCH="${{ env.BRANCH_NAME }}" --confirm
       
       - name: Save Package to S3
         run: |
