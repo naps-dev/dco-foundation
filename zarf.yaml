@@ -49,6 +49,7 @@ components:
 
     images:
       - registry1.dso.mil/ironbank/big-bang/base:2.0.0
+      - registry1.dso.mil/ironbank/big-bang/base:8.4
       - registry1.dso.mil/ironbank/big-bang/grafana/grafana-plugins:9.2.0
       - registry1.dso.mil/ironbank/elastic/eck-operator/eck-operator:2.2.0
       - registry1.dso.mil/ironbank/elastic/eck-operator/eck-operator:2.4.0
