@@ -20,7 +20,8 @@ env:
 jobs:
 
   package-create:
-    runs-on: self-hosted
+    # runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -29,18 +30,23 @@ jobs:
         uses: defenseunicorns/setup-zarf@main
         with:
           version: v0.22.2
-      
+
       - name: Login to Registry One
         uses: ./.github/actions/registry-login
         with:
           registry_username: ${{secrets.REGISTRY1_USERNAME}}
           registry_password: ${{secrets.REGISTRY1_PASSWORD}}
           registry_url: registry1.dso.mil
-      
+
       - name: Create Zarf Package
         run: |
-          zarf package create --set BRANCH="${{ env.BRANCH_NAME }}" --confirm
-      
+          if [ -d "./tmp" ]; then
+            rm -rf ./tmp
+          fi
+          mkdir tmp
+          zarf package create --set BRANCH="${{ env.BRANCH_NAME }}" --confirm --tmpdir $PWD/tmp
+          rm -rf ./tmp
+
       - name: Save Package to S3
         run: |
           aws s3 cp --no-progress "${{ env.ZARF_PACKAGE }}" "${{ env.S3_PATH }}/${{ env.ZARF_PACKAGE }}"
