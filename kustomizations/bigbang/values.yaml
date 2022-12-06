@@ -37,7 +37,7 @@ istio:
     dataplane:
       ingressGateway: dataplane-ingressgateway
       hosts:
-        - "dataplane-kibana.###ZARF_VAR_DOMAIN###"
+        - "*.###ZARF_VAR_DOMAIN###"
 
 clusterAuditor:
   enabled: false
