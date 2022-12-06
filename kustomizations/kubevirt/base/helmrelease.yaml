@@ -15,6 +15,8 @@ spec:
       sourceRef:
         kind: GitRepository
         name: kubevirt
+      valuesFiles:
+        - values.yaml
   test:
     enable: false
   install:
