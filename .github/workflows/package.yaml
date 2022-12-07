@@ -13,7 +13,6 @@ defaults:
     shell: bash
 env:
   S3_PATH: "s3://${{ secrets.AWS_BUCKET }}/${{ github.repository }}/${{ github.head_ref || github.ref_name }}"
-  IMAGE_NAME: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
   BRANCH_NAME: "${{ github.head_ref || github.ref_name }}"
   ZARF_PACKAGE: zarf-package-dco-foundation-amd64.tar.zst
 
