@@ -1,3 +1,12 @@
+configurations:
+  - kustomizeconfig.yaml
+
 resources:
   - gitrepository.yaml
   - helmrelease.yaml
+
+configMapGenerator:
+  - name: kubevirt-values
+    namespace: kubevirt
+    files:
+      - values.yaml=kubevirt-values.yaml

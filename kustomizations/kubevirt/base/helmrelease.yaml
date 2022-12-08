@@ -15,8 +15,6 @@ spec:
       sourceRef:
         kind: GitRepository
         name: kubevirt
-      valuesFiles:
-        - values.yaml
   test:
     enable: false
   install:
@@ -30,6 +28,10 @@ spec:
   rollback:
     timeout: 30m
     cleanupOnFail: false
+  valuesFrom:
+    - kind: ConfigMap
+      name: kubevirt-values
+      valuesKey: values.yaml
   dependsOn:
     - name: istio
       namespace: bigbang
