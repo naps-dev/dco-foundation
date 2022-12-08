@@ -2,5 +2,5 @@ nameReference:
   - kind: ConfigMap
     version: v1
     fieldSpecs:
-      - path: space/valuesFrom/name
+      - path: spec/valuesFrom/name
         kind: HelmRelease
