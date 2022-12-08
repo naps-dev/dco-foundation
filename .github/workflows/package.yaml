@@ -15,12 +15,9 @@ env:
   S3_PATH: "s3://${{ secrets.AWS_BUCKET }}/${{ github.repository }}/${{ github.head_ref || github.ref_name }}"
   BRANCH_NAME: "${{ github.head_ref || github.ref_name }}"
   ZARF_PACKAGE: zarf-package-dco-foundation-amd64.tar.zst
-
 jobs:
-
   package-create:
     runs-on: self-hosted
-
     steps:
       - uses: actions/checkout@v3
 
@@ -30,19 +27,29 @@ jobs:
           version: v0.22.2
 
       - name: Login to Registry One
-        uses: ./.github/actions/registry-login
-        with:
-          registry_username: ${{secrets.REGISTRY1_USERNAME}}
-          registry_password: ${{secrets.REGISTRY1_PASSWORD}}
-          registry_url: registry1.dso.mil
+        run: |
+          zarf tools registry login \
+            -u "${{secrets.REGISTRY1_USERNAME}}" \
+            -p "${{secrets.REGISTRY1_PASSWORD}}" \
+            "registry1.dso.mil"
 
       - name: Create Zarf Package
         run: |
-          if [ -d "./tmp" ]; then
-            rm -rf ./tmp
-          fi
+          # cleanup and init a tmp dir
+          rm -rf tmp
           mkdir tmp
-          zarf package create --set BRANCH="${{ env.BRANCH_NAME }}" --confirm --tmpdir $PWD/tmp
+
+          # remove any cached version of dco_foundation to avoid push warnings (known zarf issue)
+          rm -rf ~/.zarf-cache/repos/dco-foundation*
+
+          # build the zarf package
+          zarf package create \
+            --set BRANCH="${{ env.BRANCH_NAME }}" \
+            --confirm \
+            --tmpdir $PWD/tmp \
+            --skip-sbom
+
+          # cleanup tmp dir
           rm -rf ./tmp
 
       - name: Save Package to S3
